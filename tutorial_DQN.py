@@ -45,7 +45,7 @@ python tutorial_DQN.py --train/test
 """
 import argparse
 import time
-import gym
+import gymnasium as gym
 import numpy as np
 import tensorflow as tf
 import tensorlayer as tl
@@ -108,12 +108,12 @@ def load_ckpt(model):  # load trained weights
 
 if __name__ == '__main__':
 
-    qnetwork = get_model([None, 16])            #定义inputshape[None,16]。16是state数量
+    qnetwork = get_model([None, 16])            #定义inputshape[None,16]。16是state数量,none表示batchsize是可变的
     qnetwork.train()                            #调用tensorlayer的时候，需要标注这个模型是否可以训练。(再次吐槽tenorlayers...)
     train_weights = qnetwork.trainable_weights  #模型的参数
 
     optimizer = tf.optimizers.SGD(learning_rate=0.1)   #定义优化器
-    env = gym.make('FrozenLake-v0')                    #定义环境
+    env = gym.make('FrozenLake-v1')                    #定义环境
 
     # ======开始训练=======
     if args.train:
